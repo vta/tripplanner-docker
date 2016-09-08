@@ -1,0 +1,26 @@
+version: "2"
+
+services:
+  otp:
+    build: ./otp
+    restart: always
+    ports:
+      - "8888"
+
+  tripplanner:
+    build: ./tripplanner
+    restart: always
+    ports:
+      - "5000"
+    links:
+      - otp
+
+  nginx:
+    build: ./nginx
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - tripplanner
+    links:
+      - tripplanner
