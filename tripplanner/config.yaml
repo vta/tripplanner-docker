@@ -1,0 +1,84 @@
+---
+application: VTA Trip Planner
+name: VTA Trip Planner
+domain: vta.org
+
+#announcements:
+
+organization:
+  name: VTA
+  url: http://www.vta.org
+
+# Applicatio
+version: 1.0.1
+
+# Support Email Address
+email:
+  name: AmigoCloud Support
+  address: support@amigocloud.com
+
+# Geocoding
+geocode:
+  center: -121.99905395507812,37.36197126180853
+  zoom: 11
+  start_address:
+  end_address:
+
+bing_key: ''
+
+
+# Default application values
+api_url: /api
+base_url: http://localhost:5000
+
+google_site_verification:
+
+map_provider: 'AmigoCloud'
+realtime_access_token: ''
+realtime_dataset_url: ''
+support_data_token: ''
+bus_prediction_url: ''
+bus_routes_url: ''
+query_interval: 30000
+
+feedback_table_name: ''
+feedback_write_token: ''
+feedback_write_url: ''
+
+mapbox_access_token: ''
+mapbox_map_id: ''
+
+otp:
+  host: otp
+  path: /otp/routers/default
+  port: 8888
+s3_bucket: ''
+segmentio_key: ''
+static_url: /assets
+
+ignore_events_from: 'amigocloud.com'
+ga_key: ''
+ac_key: ''
+ac_event_url: ''
+ac_event_table: ''
+
+# Custom Environments
+environments:
+
+  # For running tests
+  test:
+
+  # Default & development
+  development:
+
+  # Staging / QA / Production
+  production:
+    base_url:
+    opsworks:
+      node_app_id:
+      otp_app_id:
+      otp_layer_id:
+      stack_id:
+    s3_bucket:
+    segmentio_key:
+    static_url:
