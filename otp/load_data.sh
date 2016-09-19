@@ -54,3 +54,6 @@ $GTFSM -o ../data/ CountyConnection http://transitfeeds.com/p/county-connection/
 
 # San Benito County
 $GTFSM -o ../data/ SanBenito http://transitfeeds.com/p/san-benito-county-express/491/latest/download
+
+#Stanford Marguerite Shuttle
+$GTFSM -o ../data/ StanfordMarguerite https://transportation-forms.stanford.edu/google/google_transit.zip
