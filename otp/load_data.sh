@@ -57,3 +57,7 @@ $GTFSM -o ../data/ SanBenito http://transitfeeds.com/p/san-benito-county-express
 
 #Stanford Marguerite Shuttle
 $GTFSM -o ../data/ StanfordMarguerite https://transportation-forms.stanford.edu/google/google_transit.zip
+
+# Build OTP graph
+java -Xmx6G -Xverify:none -jar /srv/vta.amigocloud.com/OTP/target/otp-1.0.0-shaded.jar --build /srv/vta.amigocloud.com/data --cache /srv/vta.amigocloud.com/ned/
+mv ../data/Graph.obj ../data/graphs/default/
