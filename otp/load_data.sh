@@ -1,8 +1,8 @@
 #!/bin/bash
 
-DATA_DIR="/srv/tripplanner/data"
-GTFSM="python /srv/tripplanner/gtfs-manager/src/gtfs-manager/gtfsmanager.py"
-GTFSM_TEMP_DIR="/srv/tripplanner/data_tmp"
+DATA_DIR="/srv/vta.amigocloud.com/data"
+GTFSM="python /srv/vta.amigocloud.com/gtfs-manager/src/gtfs-manager/gtfsmanager.py"
+GTFSM_TEMP_DIR="/srv/vta.amigocloud.com/data_tmp"
 
 cd $DATA_DIR
 
@@ -17,7 +17,7 @@ cd $GTFSM_TEMP_DIR
 $GTFSM -o ../data/ VTA http://www.vta.org/sfc/servlet.shepherd/document/download/069A0000001NUea
 
 #Caltrain
-$GTFSM -o ../data/ Caltrain http://www.caltrain.com/Assets/GTFS/caltrain/Caltrain-GTFS.zip
+$GTFSM -o ../data/ Caltrain http://transitfeeds.com/p/caltrain/122/latest/download
 
 # BART
 $GTFSM -o ../data/ BART http://transitfeeds.com/p/bart/58/latest/download
@@ -58,6 +58,12 @@ $GTFSM -o ../data/ SanBenito http://transitfeeds.com/p/san-benito-county-express
 #Stanford Marguerite Shuttle
 $GTFSM -o ../data/ StanfordMarguerite https://transportation-forms.stanford.edu/google/google_transit.zip
 
-# Build OTP graph
-java -Xmx6G -Xverify:none -jar /srv/vta.amigocloud.com/OTP/target/otp-1.0.0-shaded.jar --build /srv/vta.amigocloud.com/data --cache /srv/vta.amigocloud.com/ned/
+#ACE Transit
+$GTFSM -o ../data/ ACE "http://api.511.org/transit/datafeeds?api_key=ac488e3a-7283-44be-b910-24fd237a5abb&operator_id=CE"
+
+#Capitol Cooridoor
+$GTFSM -o ../data/ CC "http://api.511.org/transit/datafeeds?api_key=ac488e3a-7283-44be-b910-24fd237a5abb&operator_id=CC"
+
+java -Xmx3G -Xverify:none -jar /srv/vta.amigocloud.com/OTP/target/otp-1.0.0-shaded.jar --build /srv/vta.amigocloud.com/data --cache /srv/vta.amigocloud.com/ned/
+
 mv ../data/Graph.obj ../data/graphs/default/
