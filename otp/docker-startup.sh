@@ -6,7 +6,7 @@ set -exu
 #/etc/init.d/docker start
 
 # Load OSM and GTFS data
-/srv/tripplanner/load_data.sh
+/srv/tripplanner/gtfs-manager/gtfs-loader.sh
 
 # Start OTP
 /srv/tripplanner/otp/otp.sh

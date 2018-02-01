@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 
 ENV TERM xterm
 
@@ -20,7 +20,7 @@ RUN cd /srv/tripplanner/
 RUN mkdir /srv/tripplanner/otp
 RUN mkdir /srv/tripplanner/otp/ned
 RUN cd /srv/tripplanner/otp
-RUN curl -L http://maven.conveyal.com.s3.amazonaws.com/org/opentripplanner/otp/0.20.0/otp-0.20.0-shaded.jar > /srv/tripplanner/otp/otp-0.20.0-shaded.jar
+RUN curl -L https://repo1.maven.org/maven2/org/opentripplanner/otp/1.2.0/otp-1.2.0-shaded.jar > /srv/tripplanner/otp/otp-1.2.0-shaded.jar
 ADD otp/otp.sh /srv/tripplanner/otp/otp.sh
 RUN chmod +x /srv/tripplanner/otp/otp.sh
 
@@ -32,15 +32,19 @@ RUN pip install transitfeed
 # Install GTFS manager
 RUN cd /srv/tripplanner/
 RUN git clone https://github.com/amigocloud/gtfs-manager.git /srv/tripplanner/gtfs-manager
-ADD load_data.sh /srv/tripplanner/load_data.sh
-RUN chmod +x /srv/tripplanner/load_data.sh
+RUN cd /srv/tripplanner/gtfs-manager
+RUN "git checkout http_errors-#1"
+#ADD load_data.sh /srv/tripplanner/load_data.sh
+#RUN chmod +x /srv/tripplanner/load_data.sh
+RUN chmod +x /srv/tripplanner/gtfs-manager/gtfs-loader.sh
 RUN mkdir /srv/tripplanner/data
 RUN mkdir /srv/tripplanner/data_tmp
 
 # Add cron job to update OSM and GTFS data
-RUN echo "30 13   * * *   root    /srv/tripplanner/load_data.sh" >> /etc/crontab
+RUN echo "00 2    * * *   ubuntu	/bin/bash /srv/vta.amigocloud.com/gtfs-manager/gtfs-loader.sh" >> /etc/crontab
+#RUN echo "30 13   * * *   root    /srv/tripplanner/load_data.sh" >> /etc/crontab
 
-EXPOSE 22
+EXPOSE 22 8888 8081
 
 ADD docker-startup.sh /
 CMD ["/docker-startup.sh"]
