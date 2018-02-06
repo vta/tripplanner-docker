@@ -15,14 +15,14 @@ RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true 
 RUN apt-get update && apt-get install -y oracle-java8-installer && apt-get clean && rm -fr /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Install Open Trip Planner
-RUN mkdir /srv/tripplanner/
-RUN cd /srv/tripplanner/
-RUN mkdir /srv/tripplanner/otp
-RUN mkdir /srv/tripplanner/otp/ned
-RUN cd /srv/tripplanner/otp
-RUN curl -L https://repo1.maven.org/maven2/org/opentripplanner/otp/1.2.0/otp-1.2.0-shaded.jar > /srv/tripplanner/otp/otp-1.2.0-shaded.jar
-ADD otp/otp.sh /srv/tripplanner/otp/otp.sh
-RUN chmod +x /srv/tripplanner/otp/otp.sh
+RUN mkdir /srv/vta.amigocloud.com/
+RUN cd /srv/vta.amigocloud.com/
+RUN mkdir /srv/vta.amigocloud.com/otp
+RUN mkdir /srv/vta.amigocloud.com/otp/ned
+RUN cd /srv/vta.amigocloud.com/otp
+RUN curl -L https://repo1.maven.org/maven2/org/opentripplanner/otp/1.2.0/otp-1.2.0-shaded.jar > /srv/vta.amigocloud.com/otp/otp-1.2.0-shaded.jar
+ADD otp/otp.sh /srv/vta.amigocloud.com/otp/otp.sh
+RUN chmod +x /srv/vta.amigocloud.com/otp/otp.sh
 
 # Install Pyhton environment
 RUN apt-get -q update
@@ -30,19 +30,19 @@ RUN apt-get install -y python-pip
 RUN pip install transitfeed
 
 # Install GTFS manager
-RUN cd /srv/tripplanner/
-RUN git clone https://github.com/amigocloud/gtfs-manager.git /srv/tripplanner/gtfs-manager
-RUN cd /srv/tripplanner/gtfs-manager
+RUN cd /srv/vta.amigocloud.com/
+RUN git clone https://github.com/vta/gtfs-manager.git /srv/vta.amigocloud.com/gtfs-manager
+RUN cd /srv/vta.amigocloud.com/gtfs-manager
 RUN "git checkout http_errors-#1"
-#ADD load_data.sh /srv/tripplanner/load_data.sh
-#RUN chmod +x /srv/tripplanner/load_data.sh
-RUN chmod +x /srv/tripplanner/gtfs-manager/gtfs-loader.sh
-RUN mkdir /srv/tripplanner/data
-RUN mkdir /srv/tripplanner/data_tmp
+#ADD load_data.sh /srv/vta.amigocloud.com/load_data.sh
+#RUN chmod +x /srv/vta.amigocloud.com/load_data.sh
+RUN chmod +x /srv/vta.amigocloud.com/gtfs-manager/gtfs-loader.sh
+RUN mkdir /srv/vta.amigocloud.com/data
+RUN mkdir /srv/vta.amigocloud.com/data_tmp
 
 # Add cron job to update OSM and GTFS data
 RUN echo "00 2    * * *   ubuntu	/bin/bash /srv/vta.amigocloud.com/gtfs-manager/gtfs-loader.sh" >> /etc/crontab
-#RUN echo "30 13   * * *   root    /srv/tripplanner/load_data.sh" >> /etc/crontab
+#RUN echo "30 13   * * *   root    /srv/vta.amigocloud.com/load_data.sh" >> /etc/crontab
 
 EXPOSE 22 8888 8081
 
