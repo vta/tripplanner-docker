@@ -3,9 +3,8 @@ FROM ubuntu:16.04
 ENV TERM xterm
 
 # Install SSH server, curl
-RUN apt-get -q update
-RUN apt-get install -y openssh-server
-RUN apt-get install -y git curl python-pip
+RUN apt-get update --fix-missing
+RUN apt-get install -y openssh-server git curl python-pip
 RUN mkdir /var/run/sshd
 
 # Install java8
@@ -25,17 +24,12 @@ ADD otp/otp.sh /srv/vta.amigocloud.com/otp/otp.sh
 RUN chmod +x /srv/vta.amigocloud.com/otp/otp.sh
 
 # Install Pyhton environment
-RUN apt-get -q update
-RUN apt-get install -y python-pip
 RUN pip install transitfeed
 
 # Install GTFS manager
 RUN cd /srv/vta.amigocloud.com/
 RUN git clone https://github.com/vta/gtfs-manager.git /srv/vta.amigocloud.com/gtfs-manager
-RUN cd /srv/vta.amigocloud.com/gtfs-manager
-RUN "git checkout http_errors-#1"
-#ADD load_data.sh /srv/vta.amigocloud.com/load_data.sh
-#RUN chmod +x /srv/vta.amigocloud.com/load_data.sh
+RUN cd /srv/vta.amigocloud.com/gtfs-manager && git checkout http_errors-#1
 RUN chmod +x /srv/vta.amigocloud.com/gtfs-manager/gtfs-loader.sh
 RUN mkdir /srv/vta.amigocloud.com/data
 RUN mkdir /srv/vta.amigocloud.com/data_tmp
