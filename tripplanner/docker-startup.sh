@@ -6,8 +6,8 @@ set -exu
 #/etc/init.d/docker start
 
 # Run modified-tripplanner node.js
-cp -rf /opt/modified-tripplanner /srv/tripplanner/
-cd /srv/tripplanner/modified-tripplanner
+#cp -rf /opt/modified-tripplanner /srv/tripplanner/
+cd /srv/tripplanner/modeify
 npm cache clean
 npm install
 make install

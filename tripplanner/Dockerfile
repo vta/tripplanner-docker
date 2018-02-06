@@ -18,8 +18,6 @@ RUN mkdir /srv/tripplanner/
 RUN git clone https://github.com/vta/modeify.git /srv/tripplanner/modeify
 RUN cd /srv/tripplanner/modeify
 RUN git checkout tags/2.2
-RUN npm install
-RUN make build-client
 
 ADD config.yaml /srv/tripplanner/modeify/deployment/config.yaml
 
