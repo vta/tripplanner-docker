@@ -22,6 +22,7 @@ RUN cd /srv/tripplanner/
 #RUN git clone https://github.com/amigocloud/modified-tripplanner.git /opt/modified-tripplanner
 RUN git clone https://github.com/vta/modeify.git /srv/tripplanner/modeify
 RUN cd /srv/tripplanner/modeify && git checkout -b deployment tags/2.2
+RUN mkdir /srv/tripplanner/modeify/deployment
 ADD config.yaml /srv/tripplanner/modeify/deployment/config.yaml
 
 RUN LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php
