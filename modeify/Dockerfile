@@ -5,7 +5,7 @@ ENV TERM xterm
 # Install SSH server, Node.JS, MongoDB
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update --fix-missing
-RUN apt-get install -y openssh-server build-essential curl software-properties-common apt-utils python-software-properties language-pack-en-base
+RUN apt-get install -y openssh-server build-essential curl software-properties-common apt-utils python-software-properties language-pack-en-base --fix-missing -y
 RUN locale-gen en_US.UTF-8
 RUN export LANG=en_US.UTF-8
 RUN export LC_ALL=en_US.UTF-8
