@@ -9,7 +9,7 @@ set -exu
 /srv/tripplanner/gtfs-manager/gtfs-loader.sh
 
 # Start OTP
-/srv/tripplanner/OTP/otp.sh
+/srv/tripplanner/otp/otp.sh
 
 # start the ssh daemon
 /usr/sbin/sshd -D
