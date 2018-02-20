@@ -64,6 +64,6 @@ $GTFSM -o ../data/ ACE "http://api.511.org/transit/datafeeds?api_key=ac488e3a-72
 #Capitol Cooridoor
 $GTFSM -o ../data/ CC "http://api.511.org/transit/datafeeds?api_key=ac488e3a-7283-44be-b910-24fd237a5abb&operator_id=CC"
 
-java -Xmx3G -Xverify:none -jar /srv/vta.amigocloud.com/OTP/target/otp-1.0.0-shaded.jar --build /srv/vta.amigocloud.com/data --cache /srv/vta.amigocloud.com/ned/
+java -Xmx3G -Xverify:none -jar /srv/vta.amigocloud.com/otp/target/otp-1.0.0-shaded.jar --build /srv/vta.amigocloud.com/data --cache /srv/vta.amigocloud.com/ned/
 
 mv ../data/Graph.obj ../data/graphs/default/
