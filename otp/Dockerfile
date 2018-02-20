@@ -17,13 +17,13 @@ RUN apt-get update && apt-get install -y oracle-java8-installer && apt-get clean
 RUN mkdir -p /srv/tripplanner/logs
 RUN mkdir -p /srv/tripplanner/data/graphs/default
 RUN mkdir -p /srv/tripplanner/data_tmp
-RUN mkdir -p /srv/tripplanner/otp/ned
+RUN mkdir -p /srv/tripplanner/OTP/ned
 
 # Install Open Trip Planner
-RUN cd /srv/tripplanner/otp
-RUN curl -L https://repo1.maven.org/maven2/org/opentripplanner/otp/1.2.0/otp-1.2.0-shaded.jar > /srv/tripplanner/otp/otp-1.2.0-shaded.jar
-ADD otp/otp.sh /srv/tripplanner/otp/otp.sh
-RUN chmod +x /srv/tripplanner/otp/otp.sh
+RUN cd /srv/tripplanner/OTP
+RUN curl -L https://repo1.maven.org/maven2/org/opentripplanner/otp/1.2.0/otp-1.2.0-shaded.jar > /srv/tripplanner/OTP/otp-1.2.0-shaded.jar
+ADD otp/otp.sh /srv/tripplanner/OTP/otp.sh
+RUN chmod +x /srv/tripplanner/OTP/otp.sh
 
 # Install Pyhton environment
 RUN pip install transitfeed
