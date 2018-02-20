@@ -4,7 +4,7 @@ ENV TERM xterm
 
 # Install SSH server, curl
 RUN apt-get update --fix-missing
-RUN apt-get install -y openssh-server git curl python-pip
+RUN apt-get install -y openssh-server git curl python-pip time ntp
 RUN mkdir /var/run/sshd
 
 # Install java8
