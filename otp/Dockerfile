@@ -39,7 +39,9 @@ RUN curl -L https://devplanner.vta.org/notify.json > /srv/tripplanner/gtfs-manag
 RUN echo "00 2    * * *   ubuntu	/bin/bash /srv/tripplanner/gtfs-manager/gtfs-loader.sh" >> /etc/crontab
 #RUN echo "30 13   * * *   root    /srv/tripplanner/load_data.sh" >> /etc/crontab
 
-EXPOSE 22 8888 8081
+EXPOSE 22
+EXPOSE 8888:8888
+EXPOSE 8081:8081
 
 ADD docker-startup.sh /
 CMD ["/docker-startup.sh"]
