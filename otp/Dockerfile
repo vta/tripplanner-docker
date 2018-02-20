@@ -31,8 +31,9 @@ RUN cd /srv/tripplanner/
 RUN git clone https://github.com/vta/gtfs-manager.git /srv/tripplanner/gtfs-manager
 RUN cd /srv/tripplanner/gtfs-manager && git checkout http_errors-#1
 RUN chmod +x /srv/tripplanner/gtfs-manager/gtfs-loader.sh
-RUN mkdir /srv/tripplanner/data
-RUN mkdir /srv/tripplanner/data_tmp
+RUN mkdir -p /srv/tripplanner/logs
+RUN mkdir -p /srv/tripplanner/data
+RUN mkdir -p /srv/tripplanner/data_tmp
 
 # Add cron job to update OSM and GTFS data
 RUN echo "00 2    * * *   ubuntu	/bin/bash /srv/tripplanner/gtfs-manager/gtfs-loader.sh" >> /etc/crontab
