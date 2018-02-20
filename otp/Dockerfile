@@ -18,7 +18,7 @@ RUN mkdir -p /srv/tripplanner/logs
 RUN mkdir -p /srv/tripplanner/data/graphs/default
 RUN mkdir -p /srv/tripplanner/data_tmp
 RUN mkdir -p /srv/tripplanner/otp/ned
-
+RUN mkdir -p /srv/tripplanner/ned
 # Install Open Trip Planner
 RUN cd /srv/tripplanner/otp
 RUN curl -L https://repo1.maven.org/maven2/org/opentripplanner/otp/1.2.0/otp-1.2.0-shaded.jar > /srv/tripplanner/otp/otp-1.2.0-shaded.jar
