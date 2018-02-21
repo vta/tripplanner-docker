@@ -3,6 +3,9 @@ version: "2"
 services:
   otp:
     build: ./otp
+    image: vta_otp
     restart: always
     ports:
-      - "8888"
+      - 80:8888
+      - 81:8108
+

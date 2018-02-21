@@ -18,10 +18,10 @@ RUN mkdir -p /srv/tripplanner/logs
 RUN mkdir -p /srv/tripplanner/data/graphs/default
 RUN mkdir -p /srv/tripplanner/data_tmp
 RUN mkdir -p /srv/tripplanner/otp/ned
-RUN mkdir -p /srv/tripplanner/ned
+
 # Install Open Trip Planner
 RUN cd /srv/tripplanner/otp
-RUN curl -L https://repo1.maven.org/maven2/org/opentripplanner/otp/1.2.0/otp-1.2.0-shaded.jar > /srv/tripplanner/otp/otp-1.2.0-shaded.jar
+RUN curl -L https://repo1.maven.org/maven2/org/opentripplanner/otp/1.0.0/otp-1.0.0-shaded.jar > /srv/tripplanner/otp/otp-1.0.0-shaded.jar
 ADD otp/otp.sh /srv/tripplanner/otp/otp.sh
 RUN chmod +x /srv/tripplanner/otp/otp.sh
 
@@ -40,8 +40,6 @@ RUN echo "00 2    * * *   ubuntu	/bin/bash /srv/tripplanner/gtfs-manager/gtfs-lo
 #RUN echo "30 13   * * *   root    /srv/tripplanner/load_data.sh" >> /etc/crontab
 
 EXPOSE 22
-EXPOSE 8888:8888
-EXPOSE 8081:8081
 
 ADD docker-startup.sh /
 CMD ["/docker-startup.sh"]
