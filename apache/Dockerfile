@@ -16,12 +16,12 @@ RUN rm /etc/apache2/sites-available/000-default.conf
 ADD sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf
 RUN a2ensite opentripplanner
 
-ADD ssl/ssl.tar.gz /etc/apache2/ssl.tar.gz
+ADD ssl/vta-ssl.tar.gz /etc/apache2/vta-ssl.tar.gz
 ADD robots.txt /srv/tripplanner/robots.txt
 
 RUN cd /etc/apache2
-RUN tar -xvzf /etc/apache2/ssl.tar.gz
-
+RUN tar -xvzf vta-ssl.tar.gz
+RUN chmod 600 ssl/*
 RUN chown www-data:www-data /srv/tripplanner -R
 
 EXPOSE 22
