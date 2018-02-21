@@ -4,7 +4,7 @@ ENV TERM xterm
 
 # Install SSH server, curl
 RUN apt-get update --fix-missing
-RUN apt-get install -y openssh-server git curl python-pip time ntp
+RUN apt-get install -y openssh-server git curl python-pip time ntp supervisor
 RUN mkdir /var/run/sshd
 
 # Install java8
@@ -34,6 +34,12 @@ RUN git clone https://github.com/vta/gtfs-manager.git /srv/tripplanner/gtfs-mana
 RUN cd /srv/tripplanner/gtfs-manager && git checkout http_errors-#1
 RUN chmod +x /srv/tripplanner/gtfs-manager/gtfs-loader.sh
 RUN curl -L https://devplanner.vta.org/notify.json > /srv/tripplanner/gtfs-manager/src/gtfs-manager/config.json
+
+ADD otp/monitor_log.sh /srv/tripplanner/monitor_log.sh
+RUN chmod +x /srv/trippplanner/monitor_log.sh
+RUN rm /etc/supervisor/supervisor.conf
+ADD etc/supervisor/supervisor.conf /etc/supervisor/supervisor.conf
+ADD etc/supervisor/conf.d/opentripplanner.conf /etc/supervisor/conf.d/opentripplanner.conf
 
 # Add cron job to update OSM and GTFS data
 RUN echo "00 2    * * *   ubuntu	/bin/bash /srv/tripplanner/gtfs-manager/gtfs-loader.sh" >> /etc/crontab
