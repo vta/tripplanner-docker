@@ -4,7 +4,7 @@ ENV TERM xterm
 
 # Install SSH server, curl
 RUN apt-get update --fix-missing
-RUN apt-get install -y openssh-server git curl python-pip time ntp supervisor
+RUN apt-get install -y openssh-server git curl python-pip time ntp supervisor inotify-tools
 RUN mkdir /var/run/sshd
 
 # Install java8
@@ -24,6 +24,8 @@ RUN cd /srv/tripplanner/otp
 RUN curl -L https://repo1.maven.org/maven2/org/opentripplanner/otp/1.2.0/otp-1.2.0-shaded.jar > /srv/tripplanner/otp/otp-1.2.0-shaded.jar
 ADD otp/otp.sh /srv/tripplanner/otp/otp.sh
 RUN chmod +x /srv/tripplanner/otp/otp.sh
+ADD otp/monitor_log.sh /srv/tripplanner/monitor_log.sh
+RUN chmod +x /srv/tripplanner/monitor_log.sh
 
 # Install Pyhton environment
 RUN pip install transitfeed
@@ -35,17 +37,15 @@ RUN cd /srv/tripplanner/gtfs-manager && git checkout http_errors-#1
 RUN chmod +x /srv/tripplanner/gtfs-manager/gtfs-loader.sh
 RUN curl -L https://devplanner.vta.org/notify.json > /srv/tripplanner/gtfs-manager/src/gtfs-manager/config.json
 
-ADD otp/monitor_log.sh /srv/tripplanner/monitor_log.sh
-RUN chmod +x /srv/trippplanner/monitor_log.sh
-RUN rm /etc/supervisor/supervisor.conf
-ADD etc/supervisor/supervisor.conf /etc/supervisor/supervisor.conf
+RUN rm /etc/supervisor/supervisord.conf
+ADD etc/supervisor/supervisord.conf /etc/supervisor/supervisord.conf
 ADD etc/supervisor/conf.d/opentripplanner.conf /etc/supervisor/conf.d/opentripplanner.conf
 
 # Add cron job to update OSM and GTFS data
 RUN echo "00 2    * * *   ubuntu	/bin/bash /srv/tripplanner/gtfs-manager/gtfs-loader.sh" >> /etc/crontab
 #RUN echo "30 13   * * *   root    /srv/tripplanner/load_data.sh" >> /etc/crontab
 
-EXPOSE 22
+EXPOSE 22 8888 8081
 
 ADD docker-startup.sh /
 CMD ["/docker-startup.sh"]

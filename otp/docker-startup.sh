@@ -10,6 +10,7 @@ set -exu
 
 # Start OTP
 #/srv/tripplanner/otp/otp.sh
+/usr/bin/supervisorctl restart vta:vta_otp
 
 # start the ssh daemon
 /usr/sbin/sshd -D
