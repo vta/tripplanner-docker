@@ -7,5 +7,5 @@ services:
     restart: always
     ports:
       - 80:8888
-      - 81:8108
+      - 81:8081
 

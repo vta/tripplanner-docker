@@ -21,7 +21,7 @@ RUN mkdir -p /srv/tripplanner/otp/ned
 
 # Install Open Trip Planner
 RUN cd /srv/tripplanner/otp
-RUN curl -L https://repo1.maven.org/maven2/org/opentripplanner/otp/1.0.0/otp-1.0.0-shaded.jar > /srv/tripplanner/otp/otp-1.0.0-shaded.jar
+RUN curl -L https://repo1.maven.org/maven2/org/opentripplanner/otp/1.2.0/otp-1.2.0-shaded.jar > /srv/tripplanner/otp/otp-1.2.0-shaded.jar
 ADD otp/otp.sh /srv/tripplanner/otp/otp.sh
 RUN chmod +x /srv/tripplanner/otp/otp.sh
 
