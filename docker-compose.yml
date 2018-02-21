@@ -14,7 +14,7 @@ services:
       - "80:80"
       - "443:443"
     depends_on:
-      - vta_otp
+      - otp
     links:
-      - vta_otp
+      - otp
 

@@ -8,7 +8,7 @@ RUN apt-get install -y openssh-server git curl python-pip time ntp supervisor in
 RUN mkdir /var/run/sshd
 
 RUN apt-get -y install libapache2-mod-security2 libapache2-mod-geoip apache2-suexec-pristine apache2 apache2-bin apache2-data
-RUN a2enmod proxy proxy_http alias vhost rewrite suexec
+RUN a2enmod proxy proxy_http alias rewrite suexec
 RUN a2dissite default-ssl
 ADD sites-available/opentripplanner.conf /etc/apache2/sites-available/opentripplanner.conf
 RUN a2ensite opentripplanner
