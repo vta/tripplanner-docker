@@ -3,13 +3,13 @@ version: "2"
 services:
   otp:
     build: ./otp
-    image: vta_otp
+    image: scvta/otp
     restart: always
 #    networks:
 #      - backend
   apache:
     build: ./apache
-    image: vta_apache
+    image: scvta/otp-apache
     restart: always
 #    networks:
 #      - frontend
