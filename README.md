@@ -1,8 +1,25 @@
 # Open Trip Planner via Docker
 
+```
+Minimum Environment requirements:
+=================================
+OS: Ubuntu 16.04 LTS
+RAM: 4GB +
+SWAP: 8GB +
+VPU: 2+
+SSD: 24GB - 30GB +
+Instance Type: Medium +
+```
+
 A Docker container version of the Open Trip Planner suitable for use with an AWS EC2 medium instance.
 
-# Docker-Compose
+## Customization
+
+Optionally you can edit the versions of OTP pre-built shaded jar to down, add your own organizations GTFS feeds using a similarly configured JSON config file.
+
+By building a Docker container version we intend to enable other agencies to quickly spin up their own customized version of the Open Trip Planner with our GTFS Manager.
+
+## Docker-Compose
 We built OTP using docker, but most importantly docker-compose. This allows us to set our predefined
 environment, and allows us to connect multiple containers together rather than stacking everything in the same container.
 
@@ -72,15 +89,9 @@ After some time of downloading the shaded JAR files OTP should launch and be hos
 2. Install docker-compose and docker
 3. Execute the following command within the top level of the git clone
 
-```/bin/bash
+```/bin/bash 
 /usr/bin/time --verbose --output=build-time-`date +"%F-%T"`.log /bin/bash -x ./build-docker.sh
 ```
-
-## Customization
-
-Optionally you can edit the versions of OTP pre-built shaded jar to down, add your own organizations GTFS feeds using a similarly configured JSON config file.
-
-By building a Docker container version we intend to enable other agencies to quickly spin up their own customized version of the Open Trip Planner with our GTFS Manager.
 
 ### Troubleshooting
 
