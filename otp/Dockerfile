@@ -4,10 +4,13 @@ ENV TERM xterm
 
 # Install SSH server, curl
 RUN apt-get update --fix-missing
-RUN apt-get install -y openssh-server git curl python-pip time ntp supervisor inotify-tools
+RUN apt-get install -y openssh-server git curl python-pip time ntp supervisor inotify-tools telnet net-tools vim rsync logrotate && apt-get clean && rm -fr /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN mkdir /var/run/sshd
 
-# Install java8
+# Install software-common-properties
+RUN apt-get update && apt-get install -y software-properties-common && apt-get clean && rm -fr /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Install Java8
 RUN apt-get update && apt-get install -y software-properties-common && apt-get clean && rm -fr /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN add-apt-repository -y ppa:webupd8team/java
 RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
@@ -31,15 +34,21 @@ RUN chmod +x /srv/tripplanner/monitor_log.sh
 RUN pip install transitfeed
 
 # Install GTFS manager
-RUN cd /srv/tripplanner/
 RUN git clone https://github.com/vta/gtfs-manager.git /srv/tripplanner/gtfs-manager
 RUN cd /srv/tripplanner/gtfs-manager && git checkout http_errors-#1
 RUN chmod +x /srv/tripplanner/gtfs-manager/gtfs-loader.sh
+
+# Download VTA config.json
+# @todo - make this private using Docker .env files and remove from repo
 RUN curl -L https://devplanner.vta.org/notify.json > /srv/tripplanner/gtfs-manager/src/gtfs-manager/config.json
 
+# Configure Supervisord
 RUN rm /etc/supervisor/supervisord.conf
 ADD etc/supervisor/supervisord.conf /etc/supervisor/supervisord.conf
 ADD etc/supervisor/conf.d/opentripplanner.conf /etc/supervisor/conf.d/opentripplanner.conf
+
+# Set directory perms
+RUN chown www-data:www-data /srv/tripplanner -R
 
 # Add cron job to update OSM and GTFS data
 RUN echo "00 2    * * *   ubuntu	/bin/bash /srv/tripplanner/gtfs-manager/gtfs-loader.sh" >> /etc/crontab
