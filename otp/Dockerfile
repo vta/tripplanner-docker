@@ -53,7 +53,8 @@ RUN chown www-data:www-data /srv/tripplanner -R
 # Add cron job to update OSM and GTFS data
 RUN echo "00 2    * * *   ubuntu	/bin/bash /srv/tripplanner/gtfs-manager/gtfs-loader.sh" >> /etc/crontab
 #RUN echo "30 13   * * *   root    /srv/tripplanner/load_data.sh" >> /etc/crontab
-
+# Load OSM and GTFS data and Supervisord will start when it's done building Graph.obj
+RUN /srv/tripplanner/gtfs-manager/gtfs-loader.sh
 EXPOSE 22 8888 8081
 
 ADD docker-startup.sh /
