@@ -31,11 +31,11 @@ ADD otp/monitor_log.sh /srv/tripplanner/monitor_log.sh
 RUN chmod +x /srv/tripplanner/monitor_log.sh
 
 # Install Pyhton environment
-RUN pip install transitfeed
+RUN pip install transitfeed datetime requests
 
 # Install GTFS manager
 RUN git clone https://github.com/vta/gtfs-manager.git /srv/tripplanner/gtfs-manager
-RUN cd /srv/tripplanner/gtfs-manager && git checkout http_errors-#1
+RUN cd /srv/tripplanner/gtfs-manager && git checkout download_valid
 RUN chmod +x /srv/tripplanner/gtfs-manager/gtfs-loader.sh
 
 # Download VTA config.json
